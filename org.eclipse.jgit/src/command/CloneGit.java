@@ -1,4 +1,4 @@
-package versao4;
+package command;
 
 import java.io.File;
 
@@ -11,13 +11,8 @@ import org.eclipse.jgit.api.errors.TransportException;
  * @author Urbieta Souza
  *
  */
-public class CloneGit {
+public class CloneGit extends Command {
 
-	/** caminho do repositorio a ser clonado */
-	protected String remotePath;
-
-	/** caminho do repositorio local onde ficará o repositorio clonado */
-	protected String localPath;
 
 	/**
 	 * @param remotePath
@@ -28,9 +23,9 @@ public class CloneGit {
 	 */
 	public CloneGit(String remotePath, String localPath)
 			throws InvalidRemoteException, TransportException, GitAPIException {
-		super();
-		this.remotePath = remotePath;
-		this.localPath = localPath;
+		super(localPath, remotePath);
+		Command.remotePath = remotePath;
+		Command.localPath = localPath;
 		Git.cloneRepository()
 .setURI(remotePath)
 				.setDirectory(new File(localPath)).call();

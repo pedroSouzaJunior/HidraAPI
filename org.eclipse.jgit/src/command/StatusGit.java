@@ -1,4 +1,4 @@
-package versao4;
+package command;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
@@ -9,22 +9,22 @@ import org.eclipse.jgit.errors.NoWorkTreeException;
  * @author Souza Urbieta
  *
  */
-public class StatusGit {
+public class StatusGit extends Command {
 	/** */
-	protected Git git;
+	// protected Git git;
 
 	/** Recebe o Status do repositório */
 	protected Status status;
 
 	/**
-	 * @param git
+	 * @param myGit
 	 * @throws NoWorkTreeException
 	 * @throws GitAPIException
 	 */
 	@SuppressWarnings("nls")
-	public StatusGit(Git git) throws NoWorkTreeException, GitAPIException{
+	public StatusGit(Git myGit) throws NoWorkTreeException, GitAPIException {
 		super();
-		this.git = git;
+		git = myGit;
 		status = git.status().call();
 
 		System.out.println("Added: " + status.getAdded());

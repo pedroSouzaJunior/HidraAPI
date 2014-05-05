@@ -1,4 +1,4 @@
-package versao4;
+package command;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
@@ -12,12 +12,12 @@ import org.eclipse.jgit.revwalk.RevCommit;
 /**
  * @author Urbieta Souza Classe responsável por 'commitar' um arquivo para o
  *         ramo do repositório
- *
+ * 
  */
-public class CommitGit {
+public class CommitGit extends Command {
 
 	/***/
-	protected Git git;
+	// protected Git git;
 
 	private String message;
 
@@ -49,8 +49,8 @@ public class CommitGit {
 			NoMessageException, UnmergedPathsException,
 			ConcurrentRefUpdateException, WrongRepositoryStateException,
 			GitAPIException {
-		super();
-		this.git = git;
+		super(git);
+		Command.git = git;
 		RevCommit commit = git.commit().setMessage(message).call();
 		System.out.println(commit.getId().getName());
 	}
