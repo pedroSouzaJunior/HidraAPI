@@ -37,6 +37,8 @@ public class MainTeste {
 	 */
 	public static InitGit i;
 
+	private static InitGit i2;
+
 	/**
 	 * @param args
 	 * @throws IOException
@@ -71,17 +73,12 @@ public class MainTeste {
 					+ "7 - Show Status.\n" + "8 - Sair."));
 			switch (opcao) {
 			case 1:
-				JFrame frame = new JFrame("");
-				ChoosePath panel = new ChoosePath();
-				frame.addWindowListener(new WindowAdapter() {
-					public void windowClosing(WindowEvent e) {
-						System.exit(0);
-					}
-				});
-				frame.getContentPane().add(panel, "Center"); //$NON-NLS-1$
-				frame.setSize(panel.getPreferredSize());
-				frame.setVisible(true);
-				new InitGit(panel.getPathDirectory());
+				String localPath = null;
+				while (localPath == null || localPath.equals(""))
+					localPath = JOptionPane
+							.showInputDialog("Por favor digite o caminho da pasta");
+
+				i2 = new InitGit(localPath);
 
 				break;
 			case 2:
