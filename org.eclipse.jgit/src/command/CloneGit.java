@@ -26,6 +26,7 @@ public class CloneGit extends Command {
 		super(localPath, remotePath);
 		Command.remotePath = remotePath;
 		Command.localPath = localPath;
+
 		Git.cloneRepository()
 .setURI(remotePath)
 				.setDirectory(new File(localPath)).call();

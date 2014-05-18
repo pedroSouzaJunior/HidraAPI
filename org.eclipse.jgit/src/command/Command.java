@@ -7,7 +7,7 @@ import org.eclipse.jgit.lib.Repository;
  * @author Urbieta Souza Superclasse dos comandos basicos do Git
  *
  */
-public class Command {
+abstract class Command {
 
 	/***/
 	protected static Git git;
@@ -27,6 +27,10 @@ public class Command {
 	 */
 	protected static String remotePath;
 
+	/**
+	 * Nome do arquivo que pode ser adicionado ou removido
+	 */
+	protected String file;
 
 	/**
 	 * @return localPath
@@ -37,18 +41,23 @@ public class Command {
 
 
 	/**
-	 * @param git
 	 * @param localPath
-	 * @param repository
 	 * @param remotePath
 	 */
-	public Command(Git git, String localPath, Repository repository,
+	public Command(String localPath,
 			String remotePath) {
 		super();
-		Command.git = git;
+		// Command.git = git;
 		Command.localPath = localPath;
 		Command.remotePath = remotePath;
-		Command.repository = repository;
+		// Command.repository = repository;
+	}
+
+	/**
+	 * @param git
+	 */
+	public Command(Git git) {
+		Command.git = git;
 	}
 
 	/**
@@ -61,5 +70,10 @@ public class Command {
 		// Command.repository = repository2;
 	}
 
+	/**
+	 * Construto vazio
+	 */
+	public Command() {
+	}
 
 }

@@ -1,7 +1,6 @@
 package command;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 import java.io.IOException;
 
 //import javax.swing.JFrame;
@@ -12,7 +11,7 @@ import java.io.IOException;
 //import javax.swing.JFrame;
 
 
-import javax.swing.JFrame;
+
 import javax.swing.JOptionPane;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -37,7 +36,7 @@ public class MainTeste {
 	 */
 	public static InitGit i;
 
-	private static InitGit i2;
+	// private static InitGit i2;
 
 	/**
 	 * @param args
@@ -78,7 +77,7 @@ public class MainTeste {
 					localPath = JOptionPane
 							.showInputDialog("Por favor digite o caminho da pasta");
 
-				i2 = new InitGit(localPath);
+				i = new InitGit(localPath);
 
 				break;
 			case 2:
