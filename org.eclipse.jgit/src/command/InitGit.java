@@ -3,6 +3,7 @@ package command;
 import java.io.IOException;
 
 import org.eclipse.jgit.api.Git;
+
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 
 /**
@@ -19,6 +20,7 @@ public class InitGit extends Command {
 	 */
 	public InitGit(String localPath) throws IOException {
 		super(localPath);
+
 
 		// this.localPath = localPath;
 		repository = new FileRepository(localPath + "/.git"); //$NON-NLS-1$

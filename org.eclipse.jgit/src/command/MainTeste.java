@@ -1,6 +1,7 @@
 package command;
 
 
+import java.io.File;
 import java.io.IOException;
 
 //import javax.swing.JFrame;
@@ -12,8 +13,13 @@ import java.io.IOException;
 
 
 
+
+
+
 import javax.swing.JOptionPane;
 
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.InitCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 
@@ -63,6 +69,9 @@ public class MainTeste {
 		// Cria objeto:
 		// new Interface();
 
+		File f = new File("/home/pedro/teste/arquivo1");
+		f.createNewFile();
+
 		int opcao;
 		do {
 			opcao = Integer.parseInt(javax.swing.JOptionPane.showInputDialog(""
@@ -77,20 +86,36 @@ public class MainTeste {
 					localPath = JOptionPane
 							.showInputDialog("Por favor digite o caminho da pasta");
 
+
 				i = new InitGit(localPath);
 
 				break;
 			case 2:
+				localPath = "/home/pedro/teste2";
+				CreateGit objCreate = new CreateGit(localPath);
 				break;
 			case 3:
+
+				AddGit objAdd = new AddGit(i.getGit(), "file.xml");
 				break;
 			case 4:
+				localPath = "/home/pedro/teste";
+
+				RemoveFileGit objRemove = new RemoveFileGit(i.getGit(),
+						localPath, "arquivo");
 				break;
 			case 5:
+				CommitGit objCommit = new CommitGit(i.getGit(), "commited");
 				break;
 			case 6:
+				localPath = "/home/pedro/teste2";
+				String remotePath = "https://github.com/DanielliUrbieta/TCC.git";
+
+				CloneGit objClone = new CloneGit(remotePath, localPath);
 				break;
 			case 7:
+
+				StatusGit objStatus = new StatusGit(i.getGit());
 				break;
 			case 8:
 				break;

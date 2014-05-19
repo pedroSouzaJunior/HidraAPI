@@ -1,6 +1,6 @@
 package command;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.util.Set;
 
@@ -22,7 +22,7 @@ public class AddGit extends Command {
 	// protected Git git;
 
 	/** Arquivo que será adicionado ao Repositório */
-	protected File myFile;
+	// protected String myFile;
 
 	/** Responsável de 'setar' o status do Git */
 	protected Set Added;
@@ -35,16 +35,15 @@ public class AddGit extends Command {
 	 * @throws NoFilepatternException
 	 * @throws IOException
 	 */
-	public AddGit(Git myGit, File myFile) throws NoWorkTreeException,
+	public AddGit(Git myGit, String myFile) throws NoWorkTreeException,
 			GitAPIException, NoFilepatternException, IOException {
 		super();
 		git = myGit;
-		this.myFile = myFile;
-		git.add().addFilepattern("file").call(); //$NON-NLS-1$
+		// this.myFile = myFile;
+		git.add().addFilepattern(myFile).call();
 		Added = (git.status().call().getAdded());
 
 	}
 
 
 }
-

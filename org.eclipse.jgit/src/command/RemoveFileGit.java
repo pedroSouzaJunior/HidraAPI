@@ -39,6 +39,9 @@ public class RemoveFileGit extends Command {
 		file = myFile;
 		git.rm().addFilepattern(file).call();
 		removed = git.status().call().getUntracked();
+
+		// this.git.rm().addFilepattern("testFile").call();
+		// this.setRemovido(git.status().call().getUntracked());
 	}
 
 }

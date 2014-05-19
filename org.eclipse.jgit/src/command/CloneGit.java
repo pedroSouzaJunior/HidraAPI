@@ -23,12 +23,11 @@ public class CloneGit extends Command {
 	 */
 	public CloneGit(String remotePath, String localPath)
 			throws InvalidRemoteException, TransportException, GitAPIException {
-		super(localPath, remotePath);
-		Command.remotePath = remotePath;
-		Command.localPath = localPath;
+		super();
+		// Command.remotePath = remotePath;
+		// Command.localPath = localPath;
 
-		Git.cloneRepository()
-.setURI(remotePath)
+		Git.cloneRepository().setURI(remotePath)
 				.setDirectory(new File(localPath)).call();
 
 	}
