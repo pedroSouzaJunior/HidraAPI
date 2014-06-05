@@ -1,6 +1,7 @@
 package versao4;
 
 import java.io.IOException;
+//import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -44,7 +45,7 @@ public class MainTest {
 					+ "1 - Init.\n" + "2 - Create new Repository.\n"
 					+ "3 - Add file.\n" + "4 - Remove file.\n"
 					+ "5 - Commit.\n" + "6 - Clone Repository.\n"
-					+ "7 - Show Status.\n" + "8 - Sair."));
+					+ "7 - Show Status.\n" + "8 - Log.\n" + "9 - Sair"));
 			String localPath = null;
 			String filename = null;
 			String message = null;
@@ -98,15 +99,23 @@ public class MainTest {
 				newRepo.status();
 				break;
 			case 8:
+				while (localPath == null || localPath.equals(""))
+					localPath = JOptionPane
+							.showInputDialog("Entre com o endereco da pasta");
+
+				newRepo.getLogs(localPath);
+
 				break;
-			
+			case 9:
+				break;
+
 			default:
 				JOptionPane
 						.showMessageDialog(null,
 								"A opcao invalida.\n Escolha uma opcao invalida para continuar.");
 
 	           }
-		} while (opcao != 8);
+		} while (opcao != 9);
 	}
 
 

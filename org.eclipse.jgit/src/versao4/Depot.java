@@ -5,9 +5,12 @@ package versao4;
  *
  */
 
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.Set;
+
+import javax.swing.JOptionPane;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.InitCommand;
@@ -16,18 +19,24 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
 //import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
+import org.eclipse.jgit.api.errors.NoHeadException;
 //import org.eclipse.jgit.api.errors.TransportException;
-
 import org.eclipse.jgit.api.errors.TransportException;
-
-
-//import org.eclipse.jgit.transport.PushResult;
-
-import org.eclipse.jgit.errors.NoWorkTreeException;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.lib.ObjectId;
+//import org.eclipse.jgit.lib.Constants;
+//import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-import org.eclipse.jgit.internal.storage.file.*;
+import org.eclipse.jgit.errors.AmbiguousObjectException;
+//import org.eclipse.jgit.errors.IncorrectObjectTypeException;
+//import org.eclipse.jgit.errors.MissingObjectException;
+//import org.eclipse.jgit.transport.PushResult;
+import org.eclipse.jgit.errors.NoWorkTreeException;
+import org.eclipse.jgit.errors.RevisionSyntaxException;
+
+//import org.junit.Test;
 
 /**
  * @author Danielli Urbieta e Pedro Souza Junior
@@ -177,7 +186,7 @@ public class Depot {
 	/**
 	 * @return removido
 	 */
-	public Set getRemovido() {
+	public Set getRemoved() {
 		return removed;
 	}
 
@@ -197,6 +206,13 @@ public class Depot {
 	 */
 
 	/**
+	 *
+	 */
+	/*
+	 * @Test public void openGitRepo() { assertTrue(gitDir.exists());
+	 * assertNotNull(git); }
+	 */
+	/**
 	 * @param localPath
 	 * @throws IOException
 	 *             metodo init usado para inicialização de um novo repositorio
@@ -204,7 +220,7 @@ public class Depot {
 	// @SuppressWarnings({ "nls", "hiding" })
 	/*
 	 * public void init(String localPath) throws IOException {
-	 * 
+	 *
 	 * setrepository(new FileRepository(localPath + "/.git")); this.git = new
 	 * Git(repository); System.out.print(repository);
 	 * repository.getRepositoryState(); // setLocalPath(localPath); }
@@ -218,13 +234,35 @@ public class Depot {
 		InitCommand initCommand = Git.init();
 		initCommand.setDirectory(dir);
 
+
 		try {
 			this.git = initCommand.call();
 		} catch (GitAPIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
+
+	/**
+	 * @param gitworkDir
+	 * @return git
+	 */
+	public Git init1(String gitworkDir) {
+		File dir = new File(gitworkDir);
+		InitCommand initCommand = Git.init();
+		initCommand.setDirectory(dir);
+
+		try {
+			this.git = initCommand.call();
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return git;
+
+	}
+
 	/**
 	 * @param localPath
 	 * @throws IOException
@@ -232,6 +270,7 @@ public class Depot {
 	 */
 	@SuppressWarnings({ "nls", "hiding" })
 	public void create(String localPath) throws IOException {
+
 
 		setrepository(new FileRepository(localPath + "/.git"));
 		repository.create();
@@ -253,7 +292,7 @@ public class Depot {
 
 		git.add().addFilepattern(file).call();
 		setAdded(git.status().call().getAdded());
-		System.out.print(added);
+		JOptionPane.showMessageDialog(null, added);
 	}
 
 	/**
@@ -264,7 +303,7 @@ public class Depot {
 	public void commit(String message) throws GitAPIException {
 
 		RevCommit commit = git.commit().setMessage(message).call();
-		System.out.println(commit.getId().getName());
+		JOptionPane.showMessageDialog(null, commit.getId().getName());
 	}
 
 	/**
@@ -278,10 +317,15 @@ public class Depot {
 			GitAPIException {
 		this.git.rm().addFilepattern(file).call();
 		this.setRemoved(git.status().call().getUntracked());
+		if (this.getRemoved() != null)
+			JOptionPane.showMessageDialog(null,
+					"File " + file + "successfully removed "); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
 	 * @param copy
+	 *
+	 *
 	 * @param remotePath1
 	 *
 	 * @throws GitAPIException
@@ -307,7 +351,8 @@ public class Depot {
 				.findGitDir()
 				.build();
 
-		System.out.println("Having repository: " + repository1.getDirectory()); //$NON-NLS-1$
+		JOptionPane.showMessageDialog(null,
+				"Having repository: " + repository1.getDirectory()); //$NON-NLS-1$
 
 		repository1.close();
 
@@ -322,21 +367,58 @@ public class Depot {
 	@SuppressWarnings("nls")
 	public void status() throws NoWorkTreeException, GitAPIException {
 		status = git.status().call();
-		System.out.println("Added: " + status.getAdded());
-		System.out.println("Changed: " + status.getChanged());
-		System.out.println("Conflicting: " + status.getConflicting());
-		System.out.println("ConflictingStageState: "
-				+ status.getConflictingStageState());
-		System.out.println("IgnoredNotInIndex: "
-				+ status.getIgnoredNotInIndex());
-		System.out.println("Missing: " + status.getMissing());
-		System.out.println("Modified: " + status.getModified());
-		System.out.println("Removed: " + status.getRemoved());
-		System.out.println("Untracked: " + status.getUntracked());
-		System.out.println("UntrackedFolders: " + status.getUntrackedFolders());
+
+		JOptionPane.showMessageDialog(
+				null,
+				"Added: " + status.getAdded() + "\nChanged"
+						+ status.getChanged() + "\nConflicting: "
+						+ status.getConflicting() + "\nConflictingStageState: "
+						+ status.getConflictingStageState()
+						+ "\nIgnoredNotInIndex: "
+						+ status.getIgnoredNotInIndex() + "\nMissing: "
+						+ status.getMissing() + "\nModified: "
+						+ status.getModified() + "\nRemoved: "
+						+ status.getRemoved() + "\nUntracked: "
+						+ status.getUntracked() + "\nUntrackedFolders: "
+						+ status.getUntrackedFolders()
+						+ "\nUncommitted Changes"
+						+ status.getUncommittedChanges());
+
+		// JOptionPane.showInternalMessageDialog(null, "s", title, messageType);
 
 	}
 
+	/**
+	 *
+	 * @param localPath1
+	 * @throws NoHeadException
+	 * @throws GitAPIException
+	 * @throws RevisionSyntaxException
+	 * @throws AmbiguousObjectException
+	 * @throws IOException
+	 */
+	public void getLogs(String localPath1) throws NoHeadException,
+			GitAPIException, RevisionSyntaxException, AmbiguousObjectException,
+			IOException {
 
+		Git git1 = this.init1(localPath1);
+		// Repository repository1 = git1.getRepository();
+		//ObjectId head = repository1.resolve("HEAD"); //$NON-NLS-1$
+		Iterable<RevCommit> log1 = git1.log().call();
+
+			Iterator itr = log1.iterator();
+
+
+			while (itr.hasNext()) {
+				Object element = itr.next();
+			RevCommit rev = (RevCommit) itr.next();
+			System.out.println(element);
+			System.out.println("Author: " + rev.getAuthorIdent().getName()); //$NON-NLS-1$
+			System.out.println(rev.getFullMessage());
+			System.out.println();
+		}
+
+
+	}
 
 }
