@@ -45,7 +45,8 @@ public class MainTest {
 					+ "1 - Init.\n" + "2 - Create new Repository.\n"
 					+ "3 - Add file.\n" + "4 - Remove file.\n"
 					+ "5 - Commit.\n" + "6 - Clone Repository.\n"
-					+ "7 - Show Status.\n" + "8 - Log.\n" + "9 - Sair"));
+					+ "7 - Show Status.\n" + "8 - Log.\n"
+					+ "9 - Show Branch.\n" + "11 - Sair"));
 			String localPath = null;
 			String filename = null;
 			String message = null;
@@ -107,6 +108,15 @@ public class MainTest {
 
 				break;
 			case 9:
+				while (localPath == null || localPath.equals(""))
+					localPath = JOptionPane
+							.showInputDialog("Entre com o endereco do repositorio");
+				newRepo.showBranch(localPath);
+				break;
+			case 10:
+				newRepo.deleteBranch("/home/danielli/testClone2", "testBranch");
+				break;
+			case 11:
 				break;
 
 			default:

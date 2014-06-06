@@ -5,9 +5,12 @@ package versao4;
  *
  */
 
+//import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+//import java.io.OutputStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
@@ -15,24 +18,24 @@ import javax.swing.JOptionPane;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.InitCommand;
 import org.eclipse.jgit.api.Status;
+import org.eclipse.jgit.api.errors.CannotDeleteCurrentBranchException;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRefNameException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
-//import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
-//import org.eclipse.jgit.api.errors.TransportException;
+import org.eclipse.jgit.api.errors.NotMergedException;
+import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
+import org.eclipse.jgit.api.errors.RefNotFoundException;
 import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
-import org.eclipse.jgit.lib.ObjectId;
-//import org.eclipse.jgit.lib.Constants;
-//import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+//import org.eclipse.jgit.diff.DiffFormatter;
+//import org.eclipse.jgit.diff.EditList;
+//import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
-//import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-//import org.eclipse.jgit.errors.MissingObjectException;
-//import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.errors.NoWorkTreeException;
 import org.eclipse.jgit.errors.RevisionSyntaxException;
 
@@ -404,21 +407,131 @@ public class Depot {
 		Git git1 = this.init1(localPath1);
 		// Repository repository1 = git1.getRepository();
 		//ObjectId head = repository1.resolve("HEAD"); //$NON-NLS-1$
-		Iterable<RevCommit> log1 = git1.log().call();
+		Iterable<RevCommit> log1 = git1.log().all().call();
+		Iterator itr = log1.iterator();
 
-			Iterator itr = log1.iterator();
 
-
-			while (itr.hasNext()) {
-				Object element = itr.next();
+		while (itr.hasNext()) {
+			Object element = itr.next();
 			RevCommit rev = (RevCommit) itr.next();
 			System.out.println(element);
 			System.out.println("Author: " + rev.getAuthorIdent().getName()); //$NON-NLS-1$
-			System.out.println(rev.getFullMessage());
+			System.out.println("Message: " + rev.getFullMessage()); //$NON-NLS-1$
 			System.out.println();
 		}
 
 
 	}
 
+	/*
+	 * ========================Criar outro branch para poder testar public void
+	 * Diff(String localPath1) { Git git1 = this.init1(localPath1); try {
+	 * //<DiffEntry> listDiff = git1.diff().call();
+	 *
+	 *
+	 * } catch (GitAPIException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 *
+	 * }
+	 */
+
+	/**
+	 * @param localPath1
+	 */
+	@SuppressWarnings("null")
+	public void showBranch(String localPath1) {
+
+		Git git1 = this.init1(localPath1);
+		Repository repository1 = git1.getRepository();
+		List<org.eclipse.jgit.lib.Ref> call = null;
+		try {
+			call = new Git(repository1).branchList().call();
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// repensar mostrar ou não o id do branch
+		for (org.eclipse.jgit.lib.Ref ref : call) {
+			System.out
+.println("Branch: " + ref + " " + ref.getName()); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		repository1.close();
+	}
+
+	/**
+	 * @param localPath1
+	 * @param nameBranch
+	 */
+
+	@SuppressWarnings({ "nls", "null" })
+	public void createBranch(String localPath1, String nameBranch) {
+		Git git1 = this.init1(localPath1);
+		Repository repository1 = git1.getRepository();
+		try {
+			git1.branchCreate().setName(nameBranch).call();
+		} catch (RefAlreadyExistsException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (RefNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InvalidRefNameException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (GitAPIException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		List<org.eclipse.jgit.lib.Ref> call = null;
+		try {
+			call = new Git(repository1).branchList().call();
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// repensar mostrar ou não o id do branch
+		for (org.eclipse.jgit.lib.Ref ref : call) {
+			System.out.println("Branch Created: " + ref + " " + ref.getName());
+
+		}
+		repository1.close();
+
+	}
+
+	/**
+	 * @param localPath1
+	 * @param nameBranch
+	 */
+	public void deleteBranch(String localPath1, String nameBranch) {
+		Git git1 = this.init1(localPath1);
+
+		try {
+			git1.branchDelete().setBranchNames(nameBranch).call();
+		} catch (NotMergedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CannotDeleteCurrentBranchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * @param file1
+	 *
+	 * @param file2
+	 *
+	 * @return toString
+	 *
+	 * public String getDiff(String file1, String file2) { OutputStream out =
+	 * new ByteArrayOutputStream(); try { RawText rt1 = new RawText(new
+	 * File(file1)); RawText rt2 = new RawText(new File(file2)); EditList
+	 * diffList = new EditList(); diffList.addAll(differ.diff(COMP, rt1, rt2));
+	 * new DiffFormatter(out).format(diffList, rt1, rt2); } catch (IOException
+	 * e) { e.printStackTrace(); } return out.toString(); }
+	 */
 }
