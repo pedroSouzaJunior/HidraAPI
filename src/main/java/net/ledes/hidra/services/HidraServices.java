@@ -38,8 +38,8 @@ public class HidraServices {
         boolean ret = false;
 
         try {
-            commands.adicionar(fileName);
-            ret = true;
+            ret = commands.adicionar(fileName);
+            
         } catch (Exception e) {
             System.err.println("Error adding file");
         }
@@ -89,5 +89,62 @@ public class HidraServices {
         }
         return ret;
     }
+    
+    @WebMethod
+    public boolean status(){
+        boolean ret = false;
+        
+        try {
+            System.out.println(commands.status());
+            ret = true;
+        } catch (Exception e) {
+            
+        }
+        return ret;
+    }
+    
+    @WebMethod
+    public boolean Logs(){
+        boolean ret = false;
+        
+        try {
+            System.out.println(commands.getLogs());
+            ret = true;
+        } catch (Exception e) {
+            System.err.println("Error during Logs process");
+        }
+        return ret;
+        
+    }
+    
+    @WebMethod
+    public boolean Branch(){
+        boolean ret = false;
+        
+        try {
+            System.out.println(commands.showBranch());
+            ret = true;
+        } catch (Exception e) {
+            System.err.println("Error during Branch process");
+        }
+ 
+       return ret;
+        
+    }
+    
+    
+    @WebMethod
+    public boolean createBranch(@WebParam(name = "nameBranch")String nameBranch){
+        boolean ret = false;
+        
+        try {
+            System.out.println(commands.createBranch(nameBranch));
+            ret = true;
+        } catch (Exception e) {
+            System.err.println("Error During branch Creation Process");
+        }
+        return ret;
+    }
+    
 
 }

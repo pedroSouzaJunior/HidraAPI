@@ -31,60 +31,66 @@ public class HidraServicesTest extends TestCase {
 
     /**
      * Test of start method, of class HidraServices.
-     *
-    public void testStart() {
-        System.out.println("start");
-        String localPath = "/home/danielli/LocalTeste";
-        HidraServices instance = new HidraServices();
+     * @return 
+     */
+    public HidraServices testStart() {
+        System.out.println("iniciando repositorio local...");
+        String localPath = "/home/pedro/LOCALTESTE";
         boolean expResult = true;
-        boolean result = instance.start(localPath);
-        assertEquals(expResult, result);
         
+        HidraServices instance = new HidraServices();
+        
+        boolean result = instance.start(localPath);
+        
+        assertEquals(expResult, result);
+        return instance;
     }
-    * /
+    
     /**
      * Test of addOn method, of class HidraServices.
-     *
+     */
+    
     public void testAddOn() {
         System.out.println("addOn");
-        String fileName = "";
-        HidraServices instance = new HidraServices();
-        boolean expResult = false;
-        boolean result = instance.addOn(fileName);
+        String fileName = "arquivo.txt";
+        
+        
+        boolean expResult = true;
+        boolean result = testStart().addOn(fileName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
-    * /
+    
     /**
      * Test of remove method, of class HidraServices.
-     *
+     */
+    /*
     public void testRemove() {
         System.out.println("remove");
-        String filename = "";
-        HidraServices instance = new HidraServices();
+        String filename = "texte.txt";
+        
         boolean expResult = false;
-        boolean result = instance.remove(filename);
+        boolean result = testStart().remove(filename);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    * /
+    */
+    
     /**
      * Test of commit method, of class HidraServices.
-     *
+     */
+    /*
     public void testCommit() {
         System.out.println("commit");
         String message = "";
-        HidraServices instance = new HidraServices();
-        boolean expResult = false;
-        boolean result = instance.commit(message);
+        
+        boolean expResult = true;
+        boolean result = testStart().commit(message);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
     */
-
+    
+    /*
     public void testClone(){
         System.out.println("Clone");
         String message = "";
@@ -95,5 +101,59 @@ public class HidraServicesTest extends TestCase {
         
         
         
+    }
+    */
+    
+    public void testStatus(){
+        System.out.println("Status");
+        
+        boolean expResult = true;
+        boolean result = testStart().status();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of clone method, of class HidraServices.
+     */
+    /*
+    public void testClone() {
+        System.out.println("clone");
+        String remotePath = "";
+        String localPath = "";
+        HidraServices instance = new HidraServices();
+        boolean expResult = false;
+        boolean result = instance.clone(remotePath, localPath);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    */    
+    
+    
+    public void testLogs(){
+    
+        System.out.println("Logs");
+        
+        boolean expResult = true;
+        boolean result = testStart().Logs();
+        assertEquals(expResult, result);
+    }
+    
+    
+    public void testBranch(){
+        System.out.println("Branch");
+        
+        boolean expResult = true;
+        boolean result = testStart().Branch();
+        assertEquals(expResult, result);
+    }
+    
+    public void testCreateBranch(){
+    
+        System.out.println("CreateBranch");
+        
+        boolean expResult = true;
+        boolean result = testStart().createBranch("NovoBranch");
+        assertEquals(expResult, result);
     }
 }

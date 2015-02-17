@@ -41,7 +41,10 @@ public class Command {
     public boolean adicionar(String fileName) {
         File file;
         String extension[];
-
+        
+        
+        
+        
         if (hidra == null) {
             System.err.println("Repository uninitialized");
         } else {
@@ -136,30 +139,10 @@ public class Command {
         }
     }
 
-    /*
-     * String REMOTE_URL =
-     * "https://github.com/DanielliUrbieta/souzaUrbieta.git"; File localPath =
-     * new File("/home/danielli/testGitClone"); localPath.delete();
-     * 
-     * // then clone System.out.println("Cloning from " + REMOTE_URL + " to " +
-     * localPath); if (localPath.exists() && localPath.listFiles().length != 0)
-     * { System.out.println("Repositorio nao vazio, operacao cancelada"); } else
-     * { Git result = null; try { result =
-     * Git.cloneRepository().setURI(REMOTE_URL) .setDirectory(localPath).call();
-     * } catch (InvalidRemoteException e) { // TODO Auto-generated catch block
-     * e.printStackTrace(); } catch (TransportException e) { // TODO
-     * Auto-generated catch block e.printStackTrace(); } catch (GitAPIException
-     * e) { // TODO Auto-generated catch block e.printStackTrace(); }
-     * 
-     * try { // Note: the call() returns an opened repository already which //
-     * needs to be closed to avoid file handle leaks!
-     * System.out.println("Having repository: " +
-     * result.getRepository().getDirectory()); } finally { result.close(); } }
-     */
-    @WebMethod
+    
     public String status() {
         if (hidra == null) {
-            System.err.println("Repositorio nao inicializado");
+            System.err.println("Repository uninitialized");
         } else {
             try {
                 hidra.setStatus(hidra.getGit().status().call());
@@ -197,7 +180,7 @@ public class Command {
     public String getLogs() {
         String logs = null;
         if (hidra == null) {
-            System.err.println("Repositorio nao inicializado");
+            System.err.println("Repository uninitialized");
         } else {
 
             // Repository repository1 = git1.getRepository();
@@ -239,7 +222,7 @@ public class Command {
     public String showBranch() {
         String branches = null;
         if (hidra == null) {
-            System.err.println("Repositorio nao inicializado");
+            System.err.println("Repository uninitialized");
         } else {
             List<org.eclipse.jgit.lib.Ref> call = null;
             try {
@@ -259,8 +242,8 @@ public class Command {
         return branches;
     }
 
-    @WebMethod
-    public String createBranch(@WebParam(name = "nameBranch") String nameBranch) {
+    
+    public String createBranch(String nameBranch) {
         String branch = null;
         if (hidra == null) {
             System.err.println("Repositorio nao inicializado");
