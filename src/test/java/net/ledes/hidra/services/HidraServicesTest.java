@@ -31,17 +31,17 @@ public class HidraServicesTest extends TestCase {
 
     /**
      * Test of start method, of class HidraServices.
-     */
+     *
     public void testStart() {
         System.out.println("start");
-        String localPath = "/home/pedro/LocalTeste";
+        String localPath = "/home/danielli/LocalTeste";
         HidraServices instance = new HidraServices();
         boolean expResult = true;
         boolean result = instance.start(localPath);
         assertEquals(expResult, result);
         
     }
-
+    * /
     /**
      * Test of addOn method, of class HidraServices.
      *
@@ -84,4 +84,16 @@ public class HidraServicesTest extends TestCase {
         fail("The test case is a prototype.");
     }
     */
+
+    public void testClone(){
+        System.out.println("Clone");
+        String message = "";
+        HidraServices instance = new HidraServices();
+        boolean expResult = true;
+        boolean result = instance.clone("https://github.com/pedroSouzaJunior/ArquivosTeste.git", "/home/danielli/CLONE");
+        assertEquals(expResult, result);
+        
+        
+        
+    }
 }
