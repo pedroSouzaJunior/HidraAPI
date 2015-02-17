@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.jws.WebMethod;
-import javax.jws.WebParam;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
