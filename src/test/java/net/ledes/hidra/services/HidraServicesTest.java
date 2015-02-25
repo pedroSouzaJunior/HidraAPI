@@ -49,7 +49,7 @@ public class HidraServicesTest extends TestCase {
     /**
      * Test of addOn method, of class HidraServices.
      */
-    
+    /*
     public void testAddOn() {
         System.out.println("addOn");
         String fileName = "arquivo.txt";
@@ -60,7 +60,7 @@ public class HidraServicesTest extends TestCase {
         assertEquals(expResult, result);
 
     }
-    
+    */
     /**
      * Test of remove method, of class HidraServices.
      */
@@ -103,7 +103,7 @@ public class HidraServicesTest extends TestCase {
         
     }
     */
-    
+    /*
     public void testStatus(){
         System.out.println("Status");
         
@@ -111,7 +111,7 @@ public class HidraServicesTest extends TestCase {
         boolean result = testStart().status();
         assertEquals(expResult, result);
     }
-
+    */
     /**
      * Test of clone method, of class HidraServices.
      */
@@ -129,7 +129,7 @@ public class HidraServicesTest extends TestCase {
     }
     */    
     
-    
+    /*
     public void testLogs(){
     
         System.out.println("Logs");
@@ -138,7 +138,7 @@ public class HidraServicesTest extends TestCase {
         boolean result = testStart().Logs();
         assertEquals(expResult, result);
     }
-    
+    */
     
     public void testBranch(){
         System.out.println("Branch");

@@ -12,11 +12,30 @@ import net.ledes.hidra.sources.Command;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
+/**
+ * <b>Java class that contains the implementation of Web services belonging to
+ * iterface IHidra.</b>
+ *
+ * @author <br><i>Danielli - Pedro</i></br>
+ * @version 1.0
+ */
 @WebService(serviceName = "HidraControl/Command")
 public class HidraServices {
 
     Command commands = new Command();
 
+    /**
+     * Web service responsible for instantiation and initialization repository.
+     * Web service responsible for instantiation and initialization of a
+     * repository, which receives as parameter the local path to the
+     * instantiation of the new repository. With the local path is generated a
+     * directory that will pass the boot process by the method of Control
+     * Repository layer with the helper object.
+     *
+     * @see Command
+     * @param localPath
+     * @return ret
+     */
     @WebMethod
     public boolean start(@WebParam(name = "localPath") String localPath) {
         boolean ret = false;
@@ -33,13 +52,22 @@ public class HidraServices {
         return ret;
     }
 
+    /**
+     * Web service responsible for adding files in a repository. Receives as
+     * parameter to the name of the file to be added to the repository. Is used
+     * the object commands to perform the addition of new file through the
+     * Repository Control layer.
+     *
+     * @param fileName
+     * @return ret
+     */
     @WebMethod
     public boolean addOn(@WebParam(name = "fileName") String fileName) {
         boolean ret = false;
 
         try {
             ret = commands.adicionar(fileName);
-            
+
         } catch (Exception e) {
             System.err.println("Error adding file");
         }
@@ -89,24 +117,24 @@ public class HidraServices {
         }
         return ret;
     }
-    
+
     @WebMethod
-    public boolean status(){
+    public boolean status() {
         boolean ret = false;
-        
+
         try {
             System.out.println(commands.status());
             ret = true;
         } catch (Exception e) {
-            
+
         }
         return ret;
     }
-    
+
     @WebMethod
-    public boolean Logs(){
+    public boolean Logs() {
         boolean ret = false;
-        
+
         try {
             System.out.println(commands.getLogs());
             ret = true;
@@ -114,29 +142,28 @@ public class HidraServices {
             System.err.println("Error during Logs process");
         }
         return ret;
-        
+
     }
-    
+
     @WebMethod
-    public boolean Branch(){
+    public boolean Branch() {
         boolean ret = false;
-        
+
         try {
             System.out.println(commands.showBranch());
             ret = true;
         } catch (Exception e) {
             System.err.println("Error during Branch process");
         }
- 
-       return ret;
-        
+
+        return ret;
+
     }
-    
-    
+
     @WebMethod
-    public boolean createBranch(@WebParam(name = "nameBranch")String nameBranch){
+    public boolean createBranch(@WebParam(name = "nameBranch") String nameBranch) {
         boolean ret = false;
-        
+
         try {
             System.out.println(commands.createBranch(nameBranch));
             ret = true;
@@ -145,6 +172,5 @@ public class HidraServices {
         }
         return ret;
     }
-    
 
 }

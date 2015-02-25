@@ -18,6 +18,12 @@ import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.errors.NoWorkTreeException;
 import org.eclipse.jgit.revwalk.RevCommit;
 
+/**
+ * <b>Java class that contains the methods to store handling.</b>
+ *
+ * @author <br><i>Danielli - Pedro</i></br>
+ * @version 1.0
+ */
 public class Command {
 
     private Hidra hidra;
@@ -30,6 +36,14 @@ public class Command {
         this.hidra = hidra;
     }
 
+    /**
+     * Method responsible for instantiation and initialization repository
+     * Receives the parameters the directory que will be instantiated as a
+     * repository, and the repository helper object to boot git.
+     *
+     * @param directory
+     * @param Auxiliary
+     */
     public void inicializar(File directory, Git Auxiliary) {
 
         hidra = new Hidra(Auxiliary);
@@ -37,13 +51,22 @@ public class Command {
 
     }
 
+    /**
+     * Method responsible for adding files in a repository. Receives as
+     * parameters a file. Check whether the current repository this started<br>
+     * Then it is verified the existence of the file that was passed as a
+     * parameter. It is then checked the extension of the file, if the type
+     * .bpmn the file will be added to the repository. Otherwise One exception
+     * is thrown stating that the file type is not available.
+     *
+     *
+     * @param fileName
+     * @return boolean
+     */
     public boolean adicionar(String fileName) {
         File file;
         String extension[];
-        
-        
-        
-        
+
         if (hidra == null) {
             System.err.println("Repository uninitialized");
         } else {
@@ -53,7 +76,7 @@ public class Command {
                 return false;
             } else {
                 extension = fileName.split("\\.");
-                if (!extension[1].equals("txt")) {
+                if (!extension[1].equals("bpmn")) {
                     System.err.println("Incorrect file type: "
                             + extension[1]);
                     return false;
@@ -72,6 +95,17 @@ public class Command {
         return false;
     }
 
+    /**
+     * Method responsible for removing repository files. Receives as parameters
+     * a file. Check whether the current repository this started, then it is
+     * verified the existence of the file that was passed as a parameter, then
+     * the file is removed and deleted from the repository. Otherwise One
+     * exception is thrown stating that the file does not exist. At the end a
+     * success message is informed
+     *
+     * @param filename
+     * @return boolean
+     */
     public boolean remove(String filename) {
         File file;
 
@@ -101,6 +135,16 @@ public class Command {
         return false;
     }
 
+    /**
+     * Method responsible for sending changes to the repository. Receives as
+     * parameters a message to commit control. Check whether the current
+     * repository this initialized, then the amendment submission process is
+     * done. Otherwise One exception is thrown stating that the store did not
+     * initialize correctly.
+     *
+     * @param message
+     * @return boolean
+     */
     public boolean commit(String message) {
 
         if (hidra == null) {
@@ -118,6 +162,21 @@ public class Command {
         return false;
     }
 
+    /**
+     * Method responsible for creating a local copy of a remote repository.
+     * Receives as parameters in the URL of the remote repository, and the disk
+     * address in which to set the copy of the remote repository. After it is
+     * checked whether the directory is empty, otherwise an exception will be
+     * lançanda stating that the provided directory already contains
+     * information.
+     *
+     * @param remotePath
+     * @param directory
+     * @return boolean
+     * @throws java.io.IOException
+     * @throws org.eclipse.jgit.api.errors.InvalidRemoteException
+     * @throws org.eclipse.jgit.api.errors.TransportException
+     */
     public boolean cloneW(String remotePath, File directory) throws IOException,
             InvalidRemoteException, TransportException, GitAPIException {
 
@@ -138,7 +197,14 @@ public class Command {
         }
     }
 
-    
+    /**
+     * Method responsible for showing the status of a repository. Checks whether
+     * the repository this started. If so, informs a list of properties for the
+     * repository as: Last added file, Conflict, File Modified, Removed File,
+     * File not sent by commit
+     *
+     * @return
+     */
     public String status() {
         if (hidra == null) {
             System.err.println("Repository uninitialized");
@@ -176,6 +242,13 @@ public class Command {
         return null;
     }
 
+    /**
+     * Method responsible for displaying a set of logs from a repository. Checks
+     * whether the repository this started. If so, the log repository will be
+     * informed.
+     *
+     * @return boolean
+     */
     public String getLogs() {
         String logs = null;
         if (hidra == null) {
@@ -217,6 +290,13 @@ public class Command {
         return logs;
     }
 
+    /**
+     * Method responsible for displaying all branches of a repository. Checks
+     * whether the repository this started. If so, the Hidra base object is used
+     * to obtain a list of all the branchs associated with the repository.
+     *
+     * @return boolean
+     */
     @WebMethod
     public String showBranch() {
         String branches = null;
@@ -241,7 +321,15 @@ public class Command {
         return branches;
     }
 
-    
+    /**
+     * Web service responsible for the creation of a new branch in the
+     * repository. Checks whether the repository this started. If so, the Hidra
+     * base object will be used for instantiation of a new Branch. The final
+     * name given to the new branch is returned.
+     *
+     * @param nameBranch
+     * @return branch
+     */
     public String createBranch(String nameBranch) {
         String branch = null;
         if (hidra == null) {
