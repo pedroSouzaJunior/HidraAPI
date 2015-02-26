@@ -21,7 +21,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 /**
  * <b>Java class that contains the methods to store handling.</b>
  *
- * @author <br><i>Danielli - Pedro</i></br>
+ * @author <b><i>Danielli - Pedro</i></b>
  * @version 1.0
  */
 public class Command {
@@ -38,7 +38,7 @@ public class Command {
 
     /**
      * Method responsible for instantiation and initialization repository
-     * Receives the parameters the directory que will be instantiated as a
+     * Receives the parameters the directory that will be instantiated as a
      * repository, and the repository helper object to boot git.
      *
      * @param directory
