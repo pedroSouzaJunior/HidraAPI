@@ -37,9 +37,13 @@ public class Command {
     }
 
     /**
-     * Method responsible for instantiation and initialization repository
+     * Method responsible for instantiation and initialization repository<br/>
      * Receives the parameters the directory that will be instantiated as a
      * repository, and the repository helper object to boot git.
+     * <br/>
+     * Método responsável pela instanciação e inicialização de repositório.<br/>
+     * Recebe os parâmetros o diretório que será instanciado como um
+     * repositório, e o objeto auxiliar git para inicializar um repositório.
      *
      * @param directory
      * @param Auxiliary
@@ -52,13 +56,23 @@ public class Command {
     }
 
     /**
-     * Method responsible for adding files in a repository. Receives as
-     * parameters a file. Check whether the current repository this started<br>
+     * Method responsible for adding files in a repository.<br/> Receives as
+     * parameters a file. Check whether the current repository this started<br/>
      * Then it is verified the existence of the file that was passed as a
-     * parameter. It is then checked the extension of the file, if the type
-     * .bpmn the file will be added to the repository. Otherwise One exception
-     * is thrown stating that the file type is not available.
-     *
+     * parameter.<br/> It is then checked the extension of the file, if the type
+     * .bpmn the file will be added to the repository.<br/> Otherwise One
+     * exception is thrown stating that the file type is not available.
+     * <br/>
+     * Método responsável por adicionar arquivos em um repositório.<br/> recebe
+     * como Parâmetros um arquivo. Verifica-se se o repositório atual esta
+     * inicializado
+     * <br/><br/>
+     * Em seguida, verifica-se a existência do arquivo que foi passado como um
+     * parâmetro.<br/> Em seguida, é verificada a extensão do arquivo, se o tipo
+     * de arquivo é .bpmn será adicionado ao repositório.<br/> Caso contrário,
+     * uma exceção é lançada afirmando que o tipo de arquivo não está
+     * compativel.
+     * <br/>
      *
      * @param fileName
      * @return boolean
@@ -102,6 +116,13 @@ public class Command {
      * the file is removed and deleted from the repository. Otherwise One
      * exception is thrown stating that the file does not exist. At the end a
      * success message is informed
+     * <br/><br/>
+     * Método responsável pela remoção de arquivos do repositório. Recebe como
+     * parâmetros um arquivo. Verifica-se se o repositório atual foi
+     * inicializado, então é verificado a existência do arquivo que foi passado
+     * como um parâmetro, em seguida, o arquivo é removido e excluído do
+     * repositório. Caso contrário uma exceção é lançada informando que o
+     * arquivo não existe. No final uma mensagem de sucesso é informada
      *
      * @param filename
      * @return boolean
@@ -141,6 +162,12 @@ public class Command {
      * repository this initialized, then the amendment submission process is
      * done. Otherwise One exception is thrown stating that the store did not
      * initialize correctly.
+     * <br/><br/>
+     * Método responsável por enviar alterações ao repositório. recebe como
+     * Parâmetros uma mensagem para controle de commit. Verifica-se se o
+     * repositório atual esta inicializado, então o processo de envio de
+     * alteração é feito. Caso contrário, uma exceção é lançada afirmando que o
+     * repositório não inicializar corretamente.
      *
      * @param message
      * @return boolean
@@ -169,6 +196,12 @@ public class Command {
      * checked whether the directory is empty, otherwise an exception will be
      * lançanda stating that the provided directory already contains
      * information.
+     * <br/><br/>
+     * Método responsável por criar uma cópia local de um repositório remoto.
+     * Recebe como parâmetros a URL do repositório remoto, e o endereço me disco
+     * para definir a cópia do repositório remoto. Depois é verificado se o
+     * diretório está vazio, caso contrário, uma exceção será lançanda
+     * informando que o diretório desde já contém informações.
      *
      * @param remotePath
      * @param directory
@@ -202,6 +235,12 @@ public class Command {
      * the repository this started. If so, informs a list of properties for the
      * repository as: Last added file, Conflict, File Modified, Removed File,
      * File not sent by commit
+     * <br/><br/>
+     * Método responsável por mostrar o status de um repositório. Verifica se o
+     * repositório esta inicializado. Se assim for, informa uma lista de
+     * propriedades referentes ao repositório como: Último arquivo adicionado,
+     * Conflito, de Modificação do arquivo, arquivo removido, Arquivo não
+     * enviado por commit
      *
      * @return
      */
@@ -246,6 +285,10 @@ public class Command {
      * Method responsible for displaying a set of logs from a repository. Checks
      * whether the repository this started. If so, the log repository will be
      * informed.
+     * <br/><br/>
+     * Método responsável por exibir um conjunto de registros (Logs) de um
+     * repositório. verifica-se se o repositório foi inicializado. Se assim for,
+     * os logs do repositório serão informados.
      *
      * @return boolean
      */
@@ -294,6 +337,11 @@ public class Command {
      * Method responsible for displaying all branches of a repository. Checks
      * whether the repository this started. If so, the Hidra base object is used
      * to obtain a list of all the branchs associated with the repository.
+     * <br/><br/>
+     * Método responsável por exibir todos os ramos de um repositório.
+     * verifica-se se o repositório foi inicializado. Se assim for, o objeto de
+     * base Hidra é utilizada para obter uma lista de todas as ramificações
+     * associadas com o repositório.
      *
      * @return boolean
      */
@@ -322,10 +370,15 @@ public class Command {
     }
 
     /**
-     * Web service responsible for the creation of a new branch in the
-     * repository. Checks whether the repository this started. If so, the Hidra
-     * base object will be used for instantiation of a new Branch. The final
-     * name given to the new branch is returned.
+     * Method responsible for the creation of a new branch in the repository.
+     * Checks whether the repository this started. If so, the Hidra base object
+     * will be used for instantiation of a new Branch. The final name given to
+     * the new branch is returned.
+     * <br/><br/>
+     * Método responsável pela criação de uma nova branch (ramo) no repositório.
+     * Verifica se o repositório foi inicializado. Se assim for, o Hidra objeto
+     * de base serão utilizados para a instanciação de uma novo branch (ramo). a
+     * final nome dado ao novo ramo é retornado.
      *
      * @param nameBranch
      * @return branch
