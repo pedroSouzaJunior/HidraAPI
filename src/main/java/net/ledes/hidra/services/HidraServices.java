@@ -48,8 +48,7 @@ public class HidraServices {
         File directory = new File(localPath);
 
         try {
-            Git auxiliary = Git.init().setDirectory(directory).call();
-            commands.inicializar(directory, auxiliary);
+            commands.inicializar(directory);
             ret = true;
         } catch (GitAPIException e) {
             System.out.println(e.getMessage());

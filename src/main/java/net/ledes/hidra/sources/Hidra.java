@@ -1,9 +1,11 @@
 package net.ledes.hidra.sources;
 
+import java.io.File;
 import java.util.Set;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
+import org.eclipse.jgit.api.errors.GitAPIException;
 //import org.eclipse.jgit.lib.Constants;
 //import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
@@ -42,8 +44,9 @@ public class Hidra {
         this.localPath = localPath;
     }
 
-    public Hidra() {
+    public Hidra(File directory) throws GitAPIException {
         super();
+        this.git = Git.init().setDirectory(directory).call();
     }
 
     public String getLocalPath() {

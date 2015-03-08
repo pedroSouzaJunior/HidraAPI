@@ -48,9 +48,9 @@ public class Command {
      * @param directory
      * @param Auxiliary
      */
-    public void inicializar(File directory, Git Auxiliary) {
+    public void inicializar(File directory) throws GitAPIException {
 
-        hidra = new Hidra(Auxiliary);
+        hidra = new Hidra(directory);
         hidra.setLocalPath(directory.getAbsolutePath());
 
     }
