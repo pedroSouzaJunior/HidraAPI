@@ -2,13 +2,14 @@ package net.ledes.hidra.sources;
 
 import java.io.File;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.GitAPIException;
-//import org.eclipse.jgit.lib.Constants;
-//import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 /**
  * <b>POJO class that contains attributes responsible for handling the
@@ -44,9 +45,16 @@ public class Hidra {
         this.localPath = localPath;
     }
 
-    public Hidra(File directory) throws GitAPIException {
-        super();
-        this.git = Git.init().setDirectory(directory).call();
+    public Hidra(File directory){
+
+        try {
+            //this.git = Git.init().setDirectory(directory).call();
+            this.repository = FileRepositoryBuilder.create(directory);
+            this.git = new Git(repository);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
     }
 
     public String getLocalPath() {

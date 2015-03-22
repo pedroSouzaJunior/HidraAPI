@@ -9,8 +9,8 @@ import javax.jws.WebService;
 
 import net.ledes.hidra.sources.Command;
 
-import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.TransportException;
 
 /**
  * <b>Java class that contains the implementation of Web services belonging to
@@ -50,7 +50,7 @@ public class HidraServices {
         try {
             commands.inicializar(directory);
             ret = true;
-        } catch (GitAPIException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -155,7 +155,7 @@ public class HidraServices {
      * @return boolean
      */
     @WebMethod
-    public boolean clone(@WebParam(name = "remotePath") String remotePath, @WebParam(name = "localPath") String localPath) {
+    public boolean clone(@WebParam(name = "remotePath") String remotePath, @WebParam(name = "localPath") String localPath) throws TransportException, Exception {
         boolean ret = false;
         File directory = new File(localPath);
 

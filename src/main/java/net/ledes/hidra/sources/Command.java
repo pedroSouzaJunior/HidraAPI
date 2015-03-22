@@ -46,9 +46,8 @@ public class Command {
      * repositório, e o objeto auxiliar git para inicializar um repositório.
      *
      * @param directory
-     * @param Auxiliary
      */
-    public void inicializar(File directory) throws GitAPIException {
+    public void inicializar(File directory){
 
         hidra = new Hidra(directory);
         hidra.setLocalPath(directory.getAbsolutePath());
@@ -99,7 +98,7 @@ public class Command {
                         hidra.getGit().add().addFilepattern(fileName).call();
                         hidra.setAdded(hidra.getGit().status().call()
                                 .getAdded());
-                    } catch (GitAPIException e) {
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     return true;
@@ -143,7 +142,7 @@ public class Command {
                     hidra.getGit().rm().addFilepattern(filename).call();
                     hidra.setRemoved(this.hidra.getGit().status().call()
                             .getUntracked());
-                } catch (GitAPIException e) {
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
 
@@ -181,7 +180,7 @@ public class Command {
                 RevCommit commit = hidra.getGit().commit().setMessage(message)
                         .call();
                 System.out.println(commit.getId().getName());
-            } catch (GitAPIException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             return true;
@@ -211,7 +210,7 @@ public class Command {
      * @throws org.eclipse.jgit.api.errors.TransportException
      */
     public boolean cloneW(String remotePath, File directory) throws IOException,
-            InvalidRemoteException, TransportException, GitAPIException {
+            InvalidRemoteException, TransportException, Exception {
 
         if (directory.exists() && directory.listFiles().length != 0) {
             System.out.println("Repository not empty , Canceled Operation");
@@ -273,7 +272,7 @@ public class Command {
             } catch (NoWorkTreeException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            } catch (GitAPIException e) {
+            } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -306,7 +305,7 @@ public class Command {
             } catch (NoHeadException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            } catch (GitAPIException e) {
+            } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -355,7 +354,7 @@ public class Command {
             try {
                 call = new Git(hidra.getGit().getRepository()).branchList()
                         .call();
-            } catch (GitAPIException e) {
+            } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -400,7 +399,7 @@ public class Command {
             } catch (InvalidRefNameException e1) {
 
                 e1.printStackTrace();
-            } catch (GitAPIException e1) {
+            } catch (Exception e1) {
 
                 e1.printStackTrace();
             }
@@ -409,7 +408,7 @@ public class Command {
             try {
                 call = new Git(hidra.getGit().getRepository()).branchList()
                         .call();
-            } catch (GitAPIException e) {
+            } catch (Exception e) {
 
                 e.printStackTrace();
             }
